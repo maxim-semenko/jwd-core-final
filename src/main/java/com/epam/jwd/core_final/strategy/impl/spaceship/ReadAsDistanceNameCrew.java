@@ -13,15 +13,17 @@ import java.util.Scanner;
 
 public class ReadAsDistanceNameCrew implements ReadFromFileSpaceshipStrategy {
     @Override
-    public void read(Scanner in, Collection<Spaceship> spaceships) throws InvalidStateException {
+    public void read(Scanner in, Collection<Spaceship> spaceships) {
         while (in.hasNextLine()) {
-            String[] tempArray = in.nextLine().split(";");
-
-            Long tempDistance = Long.valueOf(tempArray[0]);
-            String tempName = tempArray[1];
-            Map<Role, Short> tempCrew = MyHelpfulServiceImpl.getInstance().makeCrew(tempArray[2]);
-
-            spaceships.add(SpaceshipServiceImpl.getInstance().createSpaceship(tempName, tempDistance, tempCrew));
+            String[] inputDataArray = in.nextLine().split(";");
+            try {
+                spaceships.add(SpaceshipServiceImpl.getInstance().createSpaceship(
+                        inputDataArray[1],
+                        Long.valueOf(inputDataArray[0]),
+                        MyHelpfulServiceImpl.getInstance().makeCrew(inputDataArray[2])));
+            } catch (InvalidStateException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

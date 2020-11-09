@@ -57,10 +57,9 @@ public class NassaContext implements ApplicationContext {
     /**
      * You have to read input files, populate collections
      *
-     * @throws InvalidStateException
      */
     @Override
-    public void init() throws InvalidStateException {
+    public void init() {
         initCrewMembers("src\\main\\resources\\" + PropertyReaderUtil.applicationProperties.getInputRootDir() + "\\" + PropertyReaderUtil.applicationProperties.getCrewFileName());
         initSpaceShips("src\\main\\resources\\" + PropertyReaderUtil.applicationProperties.getInputRootDir() + "\\" + PropertyReaderUtil.applicationProperties.getSpaceshipsFileName());
     }

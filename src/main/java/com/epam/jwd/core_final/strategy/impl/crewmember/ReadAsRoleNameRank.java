@@ -14,14 +14,12 @@ public class ReadAsRoleNameRank implements ReadFromFileCrewMemberStrategy {
     @Override
     public void read(Scanner in, Collection<CrewMember> crewMembers) {
         while (in.hasNextLine()) {
-            String[] tempArray = in.nextLine().split(",");
-
-            Role tempRole = Role.resolveRoleById(Integer.parseInt(tempArray[0]));
-            String tempName = tempArray[1];
-            Rank tempRank = Rank.resolveRankById(Integer.parseInt(String.valueOf(tempArray[2].charAt(0))));
-
+            String[] inputDataArray = in.nextLine().split(",");
             try {
-                crewMembers.add(CrewServiceImpl.getInstance().createCrewMember(tempRole, tempName, tempRank));
+                crewMembers.add(CrewServiceImpl.getInstance().createCrewMember(
+                        Role.resolveRoleById(Integer.parseInt(inputDataArray[0])),
+                        inputDataArray[1],
+                        Rank.resolveRankById(Integer.parseInt(String.valueOf(inputDataArray[2].charAt(0))))));
             } catch (InvalidStateException e) {
                 e.printStackTrace();
             }
