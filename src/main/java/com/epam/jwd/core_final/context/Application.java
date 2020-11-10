@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 
 public interface Application {
 
-    static void start() throws InvalidStateException {
+    static void start() {
 
         // load properties for application
         PropertyReaderUtil.loadProperties();

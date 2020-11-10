@@ -50,19 +50,14 @@ public class CrewMember extends AbstractBaseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CrewMember that = (CrewMember) o;
-        return role == that.role &&
-                rank == that.rank &&
-                name.equals(that.name);
+        return role == that.role && rank == that.rank && name.equals(that.name);
     }
 
     @Override
     public String toString() {
-        return "CrewMember{" +
-                "Name=" + name +
-                ", role=" + role +
+        return "CrewMember{" + "Name=" + name + ", role=" + role +
                 ", rank=" + rank +
                 ", isReadyForNextMissions=" + isReadyForNextMissions +
-                ", id=" + id + '\'' +
-                '}';
+                ", id=" + id + '\'' + '}';
     }
 }

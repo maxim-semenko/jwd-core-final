@@ -26,7 +26,6 @@ import java.util.Scanner;
 // todo
 public class NassaContext implements ApplicationContext {
 
-
     private static NassaContext instance;
     public static final Logger LOGGER = Logger.getLogger(NassaContext.class);
 
@@ -56,7 +55,6 @@ public class NassaContext implements ApplicationContext {
 
     /**
      * You have to read input files, populate collections
-     *
      */
     @Override
     public void init() {
