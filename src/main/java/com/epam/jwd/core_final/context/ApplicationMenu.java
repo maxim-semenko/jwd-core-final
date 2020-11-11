@@ -12,6 +12,7 @@ public interface ApplicationMenu {
 
     default void printAvailableOptions() {
         System.out.println("***************************************************\n" +
+                "0. Exit\n" +
                 "1. Print all crew members.\n" +
                 "2. Print all spaceships\n" +
                 "3. Print all mission flight\n" +
