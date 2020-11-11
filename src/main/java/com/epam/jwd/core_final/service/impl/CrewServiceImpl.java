@@ -92,7 +92,7 @@ public class CrewServiceImpl implements CrewService {
                 }).findAny();
 
         if (optional.isEmpty()) {
-            throw new NullPointerException("Can't find this figure!");
+            throw new NullPointerException("The crew member is not founded!");
         } else {
             return optional;
         }

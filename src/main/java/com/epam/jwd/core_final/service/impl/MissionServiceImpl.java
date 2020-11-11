@@ -71,7 +71,7 @@ public class MissionServiceImpl implements MissionService {
                 }).collect(Collectors.toList());
 
         if (list.isEmpty()) {
-            throw new NullPointerException("Can't find this figure!");
+            throw new NullPointerException("Can't find this flight mission!");
         } else {
             return list;
         }
@@ -116,7 +116,7 @@ public class MissionServiceImpl implements MissionService {
                 }).findAny();
 
         if (optional.isEmpty()) {
-            throw new NullPointerException("Can't find this figure!");
+            throw new NullPointerException("The mission is not founded!");
         } else {
             return optional;
         }

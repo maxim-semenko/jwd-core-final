@@ -92,7 +92,7 @@ public class SpaceshipServiceImpl implements SpaceshipService {
                 }).findAny();
 
         if (optional.isEmpty()) {
-            throw new NullPointerException("Can't find this figure!");
+            throw new NullPointerException("The spaceship is not founded!");
         } else {
             return optional;
         }

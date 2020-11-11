@@ -105,18 +105,21 @@ public class ApplicationMenuFunctionalImpl implements ApplicationMenuFunctional 
 
     @Override
     public void updateInfoAboutFlightMissionByCriteria() {
-        Scanner in = new Scanner(System.in);
-        Object[] inputData = inputMissionData();
-        System.out.println("Input id:");
-        Long id = in.nextLong();
-        try {
-            FlightMission flightMission = MissionServiceImpl.getInstance().createMission(
-                    inputData[0], inputData[1], inputData[2], inputData[3], inputData[4], id);
-            MissionServiceImpl.getInstance().updateMissionDetails(flightMission);
-        } catch (RuntimeException | InvalidStateException e) {
-            System.out.println("Can't update flight mission");
+        if (NassaContext.getInstance().retrieveBaseEntityList(FlightMission.class).isEmpty()) {
+            System.out.println("The list is EMPTY!");
+        } else {
+            Scanner in = new Scanner(System.in);
+            Object[] inputData = inputMissionData();
+            System.out.println("Input id:");
+            Long id = in.nextLong();
+            try {
+                FlightMission flightMission = MissionServiceImpl.getInstance().createMission(
+                        inputData[0], inputData[1], inputData[2], inputData[3], inputData[4], id);
+                MissionServiceImpl.getInstance().updateMissionDetails(flightMission);
+            } catch (RuntimeException | InvalidStateException e) {
+                System.out.println("Can't update flight mission");
+            }
         }
-
     }
 
     @Override
@@ -167,21 +170,26 @@ public class ApplicationMenuFunctionalImpl implements ApplicationMenuFunctional 
 
     @Override
     public void writeFlightMissionInFile() {
-        Scanner in = new Scanner(System.in);
-        System.out.println("Input id:");
-        Long id = in.nextLong();
+        if (NassaContext.getInstance().retrieveBaseEntityList(FlightMission.class).isEmpty()) {
+            System.out.println("The list is EMPTY!");
+        } else {
+            Scanner in = new Scanner(System.in);
 
-        Criteria<FlightMission> flightMissionCriteria = new FlightMissionCriteria.FlightMissionCriteriaBuilder().setId(id).build();
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            System.out.println(MissionServiceImpl.getInstance().findMissionByCriteria(flightMissionCriteria).toString());
-            FlightMission flightMission = MissionServiceImpl.getInstance().findMissionByCriteria(flightMissionCriteria).get();
-            objectMapper.writeValue(new File
-                    ("src\\main\\resources\\" + PropertyReaderUtil.applicationProperties.getOutputRootDir() + "\\" +
-                            flightMission.getMissionName() + ".json"), flightMission);
-        } catch (IOException e) {
-            System.out.println("Can't write info in file!");
-            NassaContext.LOGGER.error("Can't write info in file");
+            System.out.println("Input id:");
+            Long id = in.nextLong();
+
+            Criteria<FlightMission> flightMissionCriteria = new FlightMissionCriteria.FlightMissionCriteriaBuilder().setId(id).build();
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                System.out.println(MissionServiceImpl.getInstance().findMissionByCriteria(flightMissionCriteria).toString());
+                FlightMission flightMission = MissionServiceImpl.getInstance().findMissionByCriteria(flightMissionCriteria).get();
+                objectMapper.writeValue(new File
+                        ("src\\main\\resources\\" + PropertyReaderUtil.applicationProperties.getOutputRootDir() + "\\" +
+                                flightMission.getMissionName() + ".json"), flightMission);
+            } catch (IOException e) {
+                System.out.println("Can't write info in file!");
+                NassaContext.LOGGER.error("Can't write info in file");
+            }
         }
     }
 
